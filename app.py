@@ -1,6 +1,7 @@
 import random
 import streamlit as st
-from logic_utils import check_guess
+from logic_utils import check_guess, start_new_game
+
 
 def get_range_for_difficulty(difficulty: str):
     if difficulty == "Easy":
@@ -74,8 +75,9 @@ st.sidebar.caption(f"Attempts allowed: {attempt_limit}")
 if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
+# FIX: Reset attempts counter to 0 during game restart to reflect true fresh state.
 if "attempts" not in st.session_state:
-    st.session_state.attempts = 1
+    st.session_state.attempts = 0
 
 if "score" not in st.session_state:
     st.session_state.score = 0
@@ -113,10 +115,8 @@ with col2:
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
-#FIX ME (New game doesnt fully reset)
 if new_game:
-    st.session_state.attempts = 0
-    st.session_state.secret = random.randint(1, 100)
+    start_new_game(st.session_state, low, high)
     st.success("New game started.")
     st.rerun()
 

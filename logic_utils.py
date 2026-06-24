@@ -1,3 +1,15 @@
+import random
+
+# FIX: Fixed New Game reset to properly clear score, history, and re-enable input.
+def start_new_game(session_state, low: int, high: int):
+    """Reset all game state to begin a fresh game within [low, high]."""
+    session_state.secret = random.randint(low, high) # REFACTOR: Updated secret number generation to use (low, high) from difficulty settings.
+    session_state.attempts = 0
+    session_state.score = 0
+    session_state.status = "playing"
+    session_state.history = []
+
+
 def get_range_for_difficulty(difficulty: str):
     """Return (low, high) inclusive range for a given difficulty."""
     raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
@@ -11,7 +23,7 @@ def parse_guess(raw: str):
     """
     raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
 
-
+# FIX: Corrected reversed hint logic (low/high comparison was inverted) and moved to logic_utils.py using agent mode.
 def check_guess(guess, secret):
     """
     Compare guess to secret and return (outcome, message).
