@@ -12,6 +12,7 @@ The most noticeable bug was that the hints were reversed: when my guess was too 
 I also found problems with the difficulty settings, such as Hard mode having a smaller range than Normal mode and the New Game button ignoring the selected difficulty. Another issue was that entering invalid input still consumed an attempt. 
 Additionally, the attempts counter started at 1 instead of 0, causing the game to display fewer remaining attempts than expected before any guesses were made
 Finally, after finishing a game and clicking New Game, the score and history were not reset, and the game would not accept new guesses, leaving it in a broken state.
+The reversed hints were caused by incorrect messages returned in check_guess(), while the New Game issue occurred because not all Streamlit session state variables were reset when starting a new game.
 
 
 
@@ -34,10 +35,10 @@ Document at least 3 bugs you found. Add rows as needed.
 ## 2. How did you use AI as a teammate?
 
 - Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)? 
-- CHATGPT
+CHATGPT
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
 
- - The AI suggested refactoring the New Game logic so that secret number generation uses the selected difficulty range instead of hardcoded values.
+ The AI suggested refactoring the New Game logic so that secret number generation uses the selected difficulty range instead of hardcoded values.
  This was correct because previously the game always used a fixed range (1–100), which ignored Easy and Hard settings.
  I verified this by running the game in each difficulty mode (Easy, Normal, Hard) and confirming that the generated secret number always stayed within the expected bounds.
 
@@ -72,7 +73,7 @@ AI helped me design and refine some of the test cases, especially edge cases I i
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 
--Reruns are Streamlit re-executing the whole program repeatedly, and session state is what allows the app to behave like a continuous game instead of restarting from scratch every time.
+Reruns are Streamlit re-executing the whole program repeatedly, and session state is what allows the app to behave like a continuous game instead of restarting from scratch every time.
 ---
 
 ## 5. Looking ahead: your developer habits
