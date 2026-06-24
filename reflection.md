@@ -34,12 +34,20 @@ Document at least 3 bugs you found. Add rows as needed.
 ## 2. How did you use AI as a teammate?
 
 - Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)? 
-### - CHATGPT
+- CHATGPT
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
-### - The AI suggested refactoring the New Game logic so that secret number generation uses the selected difficulty range instead of hardcoded values.
-### This was correct because previously the game always used a fixed range (1–100), which ignored Easy and Hard settings.
-### I verified this by running the game in each difficulty mode (Easy, Normal, Hard) and confirming that the generated secret number always stayed within the expected bounds.
+
+ - The AI suggested refactoring the New Game logic so that secret number generation uses the selected difficulty range instead of hardcoded values.
+ This was correct because previously the game always used a fixed range (1–100), which ignored Easy and Hard settings.
+ I verified this by running the game in each difficulty mode (Easy, Normal, Hard) and confirming that the generated secret number always stayed within the expected bounds.
+
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+
+While refactoring the New Game functionality, the AI suggested fixing two additional issues at the same time: updating the secret number generation to respect the selected difficulty range and changing the attempts counter reset from 1 to 0.
+Both suggestions were reasonable, but they were outside the scope of the bug I was actively fixing. Applying multiple changes at once would have made it harder to determine which change caused any new issues if something broke.
+Instead of accepting all the changes immediately, I reviewed each suggestion separately and implemented them one at a time. After each change, I tested the game to confirm that the behavior matched expectations.
+This helped me verify that the difficulty range fix correctly generated numbers within the selected range and that the attempts counter reset behaved consistently after starting a new game.
+The experience showed me that even when AI suggestions are technically correct, developers still need to manage scope and validate changes incrementally rather than accepting a large batch of modifications at once.
 
 ---
 
@@ -56,15 +64,15 @@ For the hint correction, I tested boundary values where the guess was slightly a
 For the New Game reset, I ran multiple full sessions to confirm that score, history, attempts, and input state were properly cleared.
 I also tested edge cases such as invalid input (non-numeric values) to ensure attempts were not incorrectly consumed.
 Finally, I verified difficulty integrity by checking that generated numbers always stayed within their assigned ranges.
-
 AI helped me design and refine some of the test cases, especially edge cases I initially did not consider. I used the suggestions to expand my pytest coverage and then verified each case manually in gameplay to ensure consistency between expected and actual behavior.
+
 ---
 
 ## 4. What did you learn about Streamlit and state?
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 
-Reruns are Streamlit re-executing the whole program repeatedly, and session state is what allows the app to behave like a continuous game instead of restarting from scratch every time.
+-Reruns are Streamlit re-executing the whole program repeatedly, and session state is what allows the app to behave like a continuous game instead of restarting from scratch every time.
 ---
 
 ## 5. Looking ahead: your developer habits
